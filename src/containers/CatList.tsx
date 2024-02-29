@@ -74,15 +74,15 @@ const CatList: FC = (): ReactElement => {
   }, [setBreeds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getCats = useCallback(
-    async (breed: string, limit: number, page: number) => {
+    async (breed: string, limit: number, page: number, purge = true) => {
       setIsListLoading(true);
       try {
-        const currentCatLength = cats.length;
+        const currentCats = purge ? [] : cats;
         const result = await catService.getCats({ breed, limit, page });
         if (result.data?.length) {
           const trimmedData = result.data.map((item: Cat) => ({ id: item.id, url: item.url }));
-          const catSet = getUniqueItems(cats, trimmedData) as Cat[];
-          setHasMore(catSet.length > currentCatLength);
+          const catSet = getUniqueItems(currentCats, trimmedData) as Cat[];
+          setHasMore(catSet.length > currentCats.length);
           setCats(catSet);
         } else {
           setHasMore(false);
@@ -99,7 +99,6 @@ const CatList: FC = (): ReactElement => {
 
   const selectBreed: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
-      setCats([]);
       const newFilters = { breed: e.target.value, limit: QUERY_DEFAULT_LIMIT, page: QUERY_DEFAULT_PAGE };
       setFilters({ breed: newFilters.breed, limit: newFilters.limit, page: newFilters.page });
 
@@ -110,7 +109,7 @@ const CatList: FC = (): ReactElement => {
         removeCookie(CAT_BREED_COOKIE_NAME);
       }
     },
-    [setCookie, setFilters, removeCookie, setCats, getCats],
+    [setCookie, setFilters, removeCookie, getCats],
   );
 
   const viewCat = useCallback(
@@ -124,7 +123,7 @@ const CatList: FC = (): ReactElement => {
   const loadMore = useCallback(() => {
     const newFilters = { ...filters, page: filters.page + 1 };
     setFilters({ ...filters, page: filters.page + 1 });
-    getCats(newFilters.breed, newFilters.limit, newFilters.page);
+    getCats(newFilters.breed, newFilters.limit, newFilters.page, false);
   }, [filters, setFilters, getCats]);
 
   const isViewButtonLoading = useCallback((id: string) => selectedCatId === id, [selectedCatId]);
