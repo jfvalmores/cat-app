@@ -1,8 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import CatDetail from '@/containers/CatDetail';
-import CatList from '@/containers/CatList';
-import { getBreeds, getCat } from '@/services/cats';
-import { Breed } from '@/types';
+import { getCat } from '@/services/cats';
+import CatListPage from '@/pages/CatList';
+import CatDetailPage from '@/pages/CatDetail';
+import ErrorPage from '@/pages/Error';
+import PageNotFound from '@/pages/PageNotFound';
 
 export const router = createBrowserRouter([
   {
@@ -11,19 +12,23 @@ export const router = createBrowserRouter([
   },
   {
     path: '/cats',
-    element: <CatList />,
-    async loader() {
-      const result = await getBreeds();
-      const breeds = result.data?.map((item: Breed) => ({ label: item.name, value: item.id })) ?? [];
-      return breeds;
-    },
+    element: <CatListPage />,
   },
   {
     path: '/cats/:id',
-    element: <CatDetail />,
+    element: <CatDetailPage />,
     async loader({ params }) {
+      // Load cat details before redirect
       const result = await getCat(params.id as string);
+      if (!result?.data?.breeds) {
+        throw Error('Cat detail link is invalid');
+      }
       return result.data;
     },
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <PageNotFound />,
   },
 ]);

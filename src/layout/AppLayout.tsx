@@ -5,7 +5,7 @@ type Props = {
 };
 
 const AppLayout: FC<Props> = ({ children }): ReactElement => {
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 export default AppLayout;
