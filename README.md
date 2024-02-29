@@ -7,9 +7,18 @@ This application let's you view and learn more about different cats.
 - Browse cats
 - View cat details
 
-# Demo
+## Demo
 
 [cute-miming](https://cute-miming.netlify.app/)
+
+## Tech stack
+
+- React
+- TypeScript
+- React Bootstrap
+- Styled Components
+- ESLint
+- Axios
 
 # Developer Guide
 
