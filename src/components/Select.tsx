@@ -13,7 +13,7 @@ type Props = {
 const Select: FC<Props> = ({ isLoading = false, items, label, onChange, value }): ReactElement => {
   return (
     <FloatingLabel controlId={`${label}_select`} label={label}>
-      <FormSelect autoFocus value={value} onChange={onChange} disabled={isLoading}>
+      <FormSelect value={value} onChange={onChange} disabled={isLoading}>
         <option value="">Select {label}</option>
         {items.map((item) => (
           <option key={item.value} value={item.value}>
