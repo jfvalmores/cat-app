@@ -7,14 +7,17 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes';
 import AppLayout from './layout/AppLayout';
 import { CatProvider } from './providers/CatProvider';
+import { ToastProvider } from './providers/ToastProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <AppLayout>
-      <CatProvider>
-        <RouterProvider router={router} />
-      </CatProvider>
+      <ToastProvider>
+        <CatProvider>
+          <RouterProvider router={router} />
+        </CatProvider>
+      </ToastProvider>
     </AppLayout>
   </React.StrictMode>,
 );

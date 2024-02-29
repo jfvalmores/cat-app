@@ -1,15 +1,15 @@
 import { useCookies } from 'react-cookie';
 import { Cat, Filters, SelectItem, TCatContext } from '@/types';
 import { createContext, FC, ReactElement, ReactNode, useContext, useState } from 'react';
-import { CAT_BREED_COOKIE_NAME, DEFAULT_PAGE, QUERY_PAGE_LIMIT } from '@/constants';
+import { CAT_BREED_COOKIE_NAME, QUERY_DEFAULT_PAGE, QUERY_DEFAULT_LIMIT } from '@/constants';
 
 const ContextDefaults: TCatContext = {
   cats: [],
   breeds: [],
   filters: {
     breed: '',
-    limit: QUERY_PAGE_LIMIT,
-    page: DEFAULT_PAGE,
+    limit: QUERY_DEFAULT_LIMIT,
+    page: QUERY_DEFAULT_PAGE,
   },
   selectedCatId: null,
   setBreeds: () => null,
@@ -33,8 +33,8 @@ export const CatProvider: FC<Props> = ({ children }): ReactElement => {
   const [selectedCatId, setSelectedCatId] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>({
     breed: cookies[CAT_BREED_COOKIE_NAME],
-    limit: QUERY_PAGE_LIMIT,
-    page: DEFAULT_PAGE,
+    limit: QUERY_DEFAULT_LIMIT,
+    page: QUERY_DEFAULT_PAGE,
   });
 
   return (

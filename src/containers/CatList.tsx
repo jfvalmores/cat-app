@@ -9,11 +9,12 @@ import { Breed, Cat } from '@/types';
 import Select from '@/components/Select';
 import Button from '@/components/Button';
 import { useCatContext } from '@/providers/CatProvider';
-import { CAT_BREED_COOKIE_NAME, DEFAULT_PAGE, QUERY_PAGE_LIMIT } from '@/constants';
+import { CAT_BREED_COOKIE_NAME, QUERY_DEFAULT_PAGE, QUERY_DEFAULT_LIMIT } from '@/constants';
 import { Card } from '@/components/Card';
 import Loading from '@/components/Loading';
 import logger from '@/utils/logger';
 import getUniqueItems from '@/utils/get-unique-items';
+import { useToastContext } from '@/providers/ToastProvider';
 
 const ViewButton = styled(Button)`
   width: 100%;
@@ -41,6 +42,7 @@ const LoadingRow = styled(Row)`
 
 const CatList: FC = (): ReactElement => {
   const navigate = useNavigate();
+  const { showToast } = useToastContext();
   const [_cookies, setCookie, removeCookie] = useCookies();
   const { breeds, cats, filters, selectedCatId, setBreeds, setCats, setFilters, setSelectedCatId } = useCatContext();
   const [isListLoading, setIsListLoading] = useState(false);
@@ -67,6 +69,7 @@ const CatList: FC = (): ReactElement => {
       setBreeds(formattedResult);
     } catch (error) {
       logger.error('Error fetching breeds', error);
+      showToast({ type: 'error', message: 'Error fetching breeds' });
     }
   }, [setBreeds]);
 
@@ -87,6 +90,7 @@ const CatList: FC = (): ReactElement => {
       } catch (error) {
         setCats([]);
         logger.error('Error fetching cats', error);
+        showToast({ type: 'error', message: 'Apologies but we could not load new cats for you at this time! Miau!' });
       }
       setIsListLoading(false);
     },
@@ -96,7 +100,7 @@ const CatList: FC = (): ReactElement => {
   const selectBreed: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
       setCats([]);
-      const newFilters = { breed: e.target.value, limit: QUERY_PAGE_LIMIT, page: DEFAULT_PAGE };
+      const newFilters = { breed: e.target.value, limit: QUERY_DEFAULT_LIMIT, page: QUERY_DEFAULT_PAGE };
       setFilters({ breed: newFilters.breed, limit: newFilters.limit, page: newFilters.page });
 
       if (newFilters.breed) {

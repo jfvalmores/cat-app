@@ -41,3 +41,14 @@ export type TCatContext = {
   setFilters: Dispatch<SetStateAction<Filters>>;
   setSelectedCatId: Dispatch<SetStateAction<string | null>>;
 };
+
+export type ToastTypes = 'error' | 'success' | 'info' | 'warning';
+
+export type TToast = {
+  message: string;
+  type: ToastTypes;
+};
+
+export type TToastContext = {
+  showToast: Dispatch<SetStateAction<TToast>>;
+};

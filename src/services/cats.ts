@@ -1,4 +1,4 @@
-import { QUERY_PAGE_LIMIT } from '@/constants';
+import { QUERY_DEFAULT_PAGE, QUERY_DEFAULT_LIMIT } from '@/constants';
 import { GetCatOptions } from '@/types';
 import request from './request';
 
@@ -13,8 +13,8 @@ const headers = {
 export const getBreeds = () => request.get('/breeds', { headers });
 
 // Get list of cats based on breed, page limit, and page filters
-export const getCats = ({ breed, limit = QUERY_PAGE_LIMIT, page = 1 }: GetCatOptions) =>
-  request.get(`/images/search?page=${page}&limit=${limit}&breed_id=${breed}`, { headers });
+export const getCats = ({ breed, limit = QUERY_DEFAULT_LIMIT, page = QUERY_DEFAULT_PAGE }: GetCatOptions) =>
+  request.get(`/images/search?page=${page}&limit=${limit}&breed_ids=${breed}`, { headers });
 
 // Get cat details
 export const getCat = (id: string) => request.get(`/images/${id}`, { headers });
