@@ -1,4 +1,17 @@
-# Getting Started with Create React App
+# Cat Browser
+
+This application let's you view and learn more about different cats.
+
+## Features
+
+- Browse cats
+- View cat details
+
+# Demo
+
+TODO
+
+# Developer Guide
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

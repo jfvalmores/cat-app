@@ -1,5 +1,6 @@
 {
   "name": "cat-app",
+  "description": "Cat browser application",
   "version": "0.1.0",
   "private": true,
   "scripts": {
