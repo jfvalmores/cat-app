@@ -5,7 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './routes';
-import AppLayout from './layout/AppLayout';
+import AppLayout from './layouts/AppLayout';
 import { CatProvider } from './providers/CatProvider';
 import { ToastProvider } from './providers/ToastProvider';
 
