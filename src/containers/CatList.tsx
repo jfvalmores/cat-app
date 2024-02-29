@@ -71,7 +71,7 @@ const CatList: FC = (): ReactElement => {
       logger.error('Error fetching breeds', error);
       showToast({ type: 'error', message: 'Error fetching breeds' });
     }
-  }, [setBreeds]);
+  }, [setBreeds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getCats = useCallback(
     async (breed: string, limit: number, page: number) => {
@@ -94,7 +94,7 @@ const CatList: FC = (): ReactElement => {
       }
       setIsListLoading(false);
     },
-    [cats, setIsListLoading, setCats, setHasMore],
+    [cats, setIsListLoading, setCats, setHasMore], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const selectBreed: ChangeEventHandler<HTMLSelectElement> = useCallback(

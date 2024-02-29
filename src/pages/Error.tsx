@@ -13,7 +13,7 @@ const ErrorPage: FC = (): ReactElement => {
 
   useEffect(() => {
     showToast({ type: 'error', message: 'Apologies but we could not load the cat for you at this time! Miau!' });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <StyledContainer>
