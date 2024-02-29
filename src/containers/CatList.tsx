@@ -99,6 +99,7 @@ const CatList: FC = (): ReactElement => {
 
   const selectBreed: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
+      setCats([]);
       const newFilters = { breed: e.target.value, limit: QUERY_DEFAULT_LIMIT, page: QUERY_DEFAULT_PAGE };
       setFilters({ breed: newFilters.breed, limit: newFilters.limit, page: newFilters.page });
 
@@ -109,7 +110,7 @@ const CatList: FC = (): ReactElement => {
         removeCookie(CAT_BREED_COOKIE_NAME);
       }
     },
-    [setCookie, setFilters, removeCookie, getCats],
+    [setCookie, setFilters, removeCookie, getCats, setCats],
   );
 
   const viewCat = useCallback(
