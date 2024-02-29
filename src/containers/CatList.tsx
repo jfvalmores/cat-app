@@ -48,19 +48,19 @@ const CatList: FC = (): ReactElement => {
   const [isListLoading, setIsListLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
+  // Fetch cats on load based on breed when the local store has no cats
+  useEffect(() => {
+    if (filters.breed && !cats.length) {
+      getCats(filters.breed, filters.limit, filters.page);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Get all possible breeds
   useEffect(() => {
     if (!breeds.length) {
       getBreedList();
     }
   }, [breeds.length]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Fetch cats based on breed when the local store has no cats
-  useEffect(() => {
-    if (filters.breed && !cats.length) {
-      getCats(filters.breed, filters.limit, filters.page);
-    }
-  }, [filters.breed]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getBreedList = useCallback(async () => {
     try {
