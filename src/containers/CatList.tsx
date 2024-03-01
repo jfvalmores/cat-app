@@ -135,7 +135,13 @@ const CatList: FC = (): ReactElement => {
       {/* Breed filter */}
       <Row>
         <Col md={3} sm={6}>
-          <Select isLoading={isListLoading} label="Breed" value={filters.breed} items={breeds} onChange={selectBreed} />
+          <Select
+            isLoading={Boolean(isListLoading || selectedCatId)}
+            label="Breed"
+            value={filters.breed}
+            items={breeds}
+            onChange={selectBreed}
+          />
         </Col>
       </Row>
       {/* Cat list */}
@@ -164,7 +170,7 @@ const CatList: FC = (): ReactElement => {
         {Boolean(filters.breed && cats.length && hasMore && !isListLoading) && (
           <Row>
             <Col md={3} sm={6}>
-              <Button variant="success" onClick={loadMore} isLoading={isListLoading}>
+              <Button variant="success" onClick={loadMore} disabled={Boolean(selectedCatId)} isLoading={isListLoading}>
                 Load more
               </Button>
             </Col>
